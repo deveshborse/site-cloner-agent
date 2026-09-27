@@ -1,0 +1,42 @@
+{
+  "name": "site-cloner-agent",
+  "version": "1.0.0",
+  "description": "AI agent that analyzes a public website and recreates its frontend as a Next.js + TypeScript project, then edits it with natural-language prompts.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "npm install && npx playwright install chromium",
+    "start": "tsx agent/server.ts",
+    "clone": "tsx agent/cli.ts clone",
+    "modify": "tsx agent/cli.ts modify",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "tsx --test tests/*.test.ts"
+  },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1",
+    "http-proxy": "^1.18.1",
+    "lucide-react": "^1.48.0",
+    "next": "15.5",
+    "pixelmatch": "^7.2.0",
+    "playwright": "^1.63.0",
+    "postcss": "^8.5.28",
+    "react": "19.1",
+    "react-dom": "19.1",
+    "sharp": "^0.35.4",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "5.9"
+  },
+  "devDependencies": {
+    "@types/http-proxy": "^1.17.17"
+  }
+}

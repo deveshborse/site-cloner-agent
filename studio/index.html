@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Site Cloner Agent</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">◧</span>
+        <span>Site Cloner Agent</span>
+      </div>
+      <div class="topbar-right">
+        <select id="siteSelect" aria-label="Previously generated sites">
+          <option value="">Previous clones…</option>
+        </select>
+        <span id="costPill" class="pill" title="AI usage for the current site">0 AI calls</span>
+        <span id="modelPill" class="pill">…</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <section class="card">
+          <h2>1 · Clone a website</h2>
+          <form id="cloneForm" class="row">
+            <input id="urlInput" type="text" placeholder="https://example.com" autocomplete="off" spellcheck="false" required />
+            <button id="cloneBtn" type="submit" class="primary">Clone</button>
+          </form>
+          <p class="hint">The agent renders the page in Chromium, extracts layout, styles and assets, then generates a Next.js + TypeScript + Tailwind project.</p>
+        </section>
+
+        <section class="card">
+          <h2>2 · Agent pipeline</h2>
+          <ol id="stages" class="stages"></ol>
+          <div id="log" class="log" aria-live="polite"></div>
+        </section>
+
+        <section class="card" id="analysisCard" hidden>
+          <h2>Analysis</h2>
+          <div id="tokens" class="tokens"></div>
+          <div id="fonts" class="muted small"></div>
+          <ul id="sections" class="sections"></ul>
+        </section>
+
+        <section class="card" id="modifyCard" hidden>
+          <h2>3 · Modify with AI</h2>
+          <form id="modifyForm">
+            <textarea id="promptInput" rows="3" placeholder="e.g. Change the primary color to blue" required></textarea>
+            <div class="chips" id="chips"></div>
+            <div class="row">
+              <button id="modifyBtn" type="submit" class="primary">Apply change</button>
+              <button id="undoBtn" type="button">Undo last</button>
+            </div>
+          </form>
+          <ul id="history" class="history"></ul>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <div class="toolbar">
+          <div class="tabs" role="tablist">
+            <button role="tab" data-tab="preview" class="active">Preview</button>
+            <button role="tab" data-tab="compare">Original vs clone</button>
+            <button role="tab" data-tab="code">Code</button>
+          </div>
+          <div class="devices" id="devices">
+            <button data-device="desktop" class="active" title="1440px">Desktop</button>
+            <button data-device="tablet" title="768px">Tablet</button>
+            <button data-device="mobile" title="390px">Mobile</button>
+          </div>
+          <div class="toolbar-right">
+            <span id="scorePill" class="pill" hidden></span>
+            <button id="reloadBtn" title="Reload preview">Reload</button>
+            <a id="openLink" class="button" target="_blank" rel="noopener" hidden>Open ↗</a>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-preview">
+          <div class="empty" id="emptyState">
+            <h3>No site yet</h3>
+            <p>Enter a public URL and press <strong>Clone</strong>. The generated site appears here with a live preview.</p>
+          </div>
+          <div class="stage-frame" id="frameWrap" hidden>
+            <iframe id="preview" title="Generated site preview"></iframe>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-compare" hidden>
+          <div class="compare">
+            <figure>
+              <figcaption>Original</figcaption>
+              <div class="shot"><img id="shotOriginal" alt="Original site screenshot" /></div>
+            </figure>
+            <figure>
+              <figcaption>Generated clone</figcaption>
+              <div class="shot"><img id="shotClone" alt="Generated clone screenshot" /></div>
+            </figure>
+          </div>
+        </div>
+
+        <div class="panel" id="panel-code" hidden>
+          <div class="code">
+            <ul id="fileList" class="files"></ul>
+            <pre id="codeView"><code>Select a file</code></pre>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

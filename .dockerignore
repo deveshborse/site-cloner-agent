@@ -1,0 +1,6 @@
+node_modules
+generated
+.cache
+.git
+.env
+*.log

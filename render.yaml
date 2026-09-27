@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: site-cloner-agent
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/status
+    envVars:
+      - key: PREVIEW_PROXY
+        value: "true"
+      - key: NODE_ENV
+        value: production
+      - key: LLM_API_KEY
+        sync: false
